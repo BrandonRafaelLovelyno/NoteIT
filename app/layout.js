@@ -15,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={twMerge(poppins.className, "antialiased")}>
+      <body className={twMerge(poppins.className, "antialiased", "bg-white")}>
         {children}
       </body>
     </html>
