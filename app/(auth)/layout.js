@@ -16,13 +16,15 @@ const AuthLayout = ({ children }) => {
 
   return (
     <div className={twMerge("w-full h-full")}>
-      <div className={twMerge("absolute", "w-full h-fit", "top-0")}>
+      <div
+        className={twMerge("absolute", "w-full h-fit", "top-0", "py-8 px-20")}
+      >
         <LogoNavbar title={navbarTitle} />
       </div>
       <Image
         src={"/right-blob.png"}
         alt="Right Blob"
-        className={twMerge("absolute", "right-0 top-10")}
+        className={twMerge("absolute", "right-0 top-10", "z-[-1]")}
         width={700}
         height={700}
       />
@@ -30,7 +32,7 @@ const AuthLayout = ({ children }) => {
       <Image
         src={"/left-blob.png"}
         alt="Left Blob"
-        className={twMerge("absolute", "left-0 bottom-0")}
+        className={twMerge("absolute", "left-0 bottom-0", "z-[-1]")}
         width={700}
         height={700}
       />
