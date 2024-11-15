@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 /* styles/globals.css */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
 :root {
   --background: #ffffff;
@@ -21,4 +20,6 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial;
+  width: 100vw;
+  height: 100vh;
 }
