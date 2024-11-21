@@ -29,7 +29,7 @@ export default function Home() {
           </Link>
         </nav>
         <div className="flex items-center space-x-4">
-          <Link href="/signup">
+          <Link href="/sign-up">
             <button className="px-4 py-2 text-white bg-indigo-600 rounded hover:bg-indigo-700">
               Sign Up
             </button>
