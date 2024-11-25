@@ -1,17 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Editor,
-  EditorState,
-  RichUtils,
-  ContentState,
-  Modifier,
-  convertToRaw,
-} from "draft-js";
+import { Editor, EditorState, convertToRaw } from "draft-js";
 import "draft-js/dist/Draft.css"; // Styles for the editor
+import { twMerge } from "tailwind-merge";
+import { CldUploadWidget } from "next-cloudinary";
 
 export default function NotesEditor() {
+  const [title, setTitle] = useState("");
   const [editorState, setEditorState] = useState(EditorState.createEmpty()); // Initialize editor state
   const [savedNotes, setSavedNotes] = useState([]); // State for saved notes
   const [headerImage, setHeaderImage] = useState(null); // State for the header image
@@ -19,7 +15,10 @@ export default function NotesEditor() {
   // Block styling logic
   const blockStyleFn = (contentBlock) => {
     const blockKey = contentBlock.getKey();
-    const firstBlockKey = editorState.getCurrentContent().getFirstBlock().getKey();
+    const firstBlockKey = editorState
+      .getCurrentContent()
+      .getFirstBlock()
+      .getKey();
 
     // Style the first block as the title
     if (blockKey === firstBlockKey) {
@@ -70,7 +69,6 @@ export default function NotesEditor() {
     <div className="p-0 mx-auto rounded-md">
       {/* Image Header Section */}
       <div className="relative bg-gray-200 h-48 flex items-center justify-center rounded">
-        <h1 className="absolute top-4 left-4 text-3xl font-bold mb-6 text-gray-700">New Page</h1>
         {headerImage ? (
           <img
             src={headerImage}
@@ -82,16 +80,31 @@ export default function NotesEditor() {
         )}
 
         {/* Upload Image Button */}
-        <label className="absolute bottom-2 right-2 bg-blue-500 text-gray-500 p-2 rounded-full cursor-pointer hover:bg-blue-600">
-          <input
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleImageUpload}
-          />
-          📤 Upload Image
-        </label>
+        <CldUploadWidget uploadPreset="ml_default">
+          {({ open }) => {
+            return (
+              <label
+                className="absolute bottom-2 right-2 bg-blue-500 text-gray-500 p-2 rounded-full cursor-pointer hover:bg-blue-600"
+                onClick={() => open()}
+              >
+                📤 Upload Image
+              </label>
+            );
+          }}
+        </CldUploadWidget>
       </div>
+
+      <input
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="New Page"
+        className={twMerge(
+          "my-5",
+          "bg-transparent",
+          "text-4xl text-black placeholder:text-4xl",
+          "focus:outline-none focus:ring-0"
+        )}
+      />
 
       {/* Draft.js Editor for notes */}
       <div className="p-10 border border-gray-300 rounded-lg shadow-sm">
@@ -144,7 +157,9 @@ export default function NotesEditor() {
                   )}
 
                   {/* Display Note Content */}
-                  <p className="text-gray-700 whitespace-pre-line">{note.text}</p>
+                  <p className="text-gray-700 whitespace-pre-line">
+                    {note.text}
+                  </p>
                 </li>
               ))}
             </ul>
