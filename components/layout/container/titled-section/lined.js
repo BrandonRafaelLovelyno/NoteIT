@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 
-export default function TitledSection({ title, children }) {
+export default function LinedTitleSection({ title, children }) {
   return (
     <section
       className={twMerge(

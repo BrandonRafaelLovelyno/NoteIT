@@ -1,5 +1,5 @@
 import Divider from "@/components/layout/divider";
-import TitledSection from "@/components/layout/titled-section";
+import LinedTitleSection from "@/components/layout/container/titled-section/lined";
 import SettingAccount from "@/components/section/setting/account";
 import SettingProfile from "@/components/section/setting/profile";
 import { twMerge } from "tailwind-merge";
