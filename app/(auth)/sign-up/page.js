@@ -1,4 +1,4 @@
-import GoogleButton from "@/components/form/google-button";
+import GoogleButton from "@/components/form/button/google-button";
 import CenterContainer from "@/components/layout/container/center-container";
 import Divider from "@/components/layout/divider";
 import SignUpForm from "@/components/section/sign-up/form";

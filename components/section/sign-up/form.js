@@ -1,3 +1,4 @@
+import PrimaryButton from "@/components/form/button/primary";
 import TextInput from "@/components/form/text-input";
 import { twMerge } from "tailwind-merge";
 
@@ -32,17 +33,7 @@ const SignUpForm = () => {
           <TextInput key={input.name} {...input} />
         ))}
       </div>
-      <button
-        className={twMerge(
-          "w-full",
-          "py-2",
-          "bg-blue",
-          "rounded-lg",
-          "text-white font-medium text-xl"
-        )}
-      >
-        Register
-      </button>
+     <PrimaryButton title="Register"/>
     </div>
   );
 };
