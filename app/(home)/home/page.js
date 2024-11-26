@@ -29,8 +29,6 @@ const getHourDifference = (dateString) => {
 };
 
 export default function HomePage() {
-  const { session, updateSession, clearSession } = useSession();
-
   const [recent, setRecent] = useState([]);
 
   const fetchRecent = async () => {
@@ -73,7 +71,12 @@ export default function HomePage() {
               <div className="bg-white shadow rounded-lg border border-gray-200 flex flex-col items-start hover:shadow-lg transition-shadow overflow-clip">
                 {activity.image ? (
                   <div className="relative w-full h-36">
-                    <Image src={activity.image} alt={activity.image} fill />
+                    <Image
+                      src={activity.image}
+                      alt={activity.image}
+                      fill
+                      objectFit="cover"
+                    />
                   </div>
                 ) : (
                   <div className="w-full h-36 bg-gray-700" />
