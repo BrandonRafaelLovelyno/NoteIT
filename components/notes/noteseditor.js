@@ -4,7 +4,6 @@ import { useState } from "react";
 import {
   Editor,
   EditorState,
-  RichUtils,
   ContentState,
   Modifier,
   convertToRaw,
@@ -15,15 +14,9 @@ export default function NotesEditor() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [savedNotes, setSavedNotes] = useState([]);
   const [headerImage, setHeaderImage] = useState(null);
+  const [noteHeading, setNoteHeading] = useState("New Page");
 
-  const blockStyleFn = (contentBlock) => {
-    const blockKey = contentBlock.getKey();
-    const firstBlockKey = editorState.getCurrentContent().getFirstBlock().getKey();
-
-    return blockKey === firstBlockKey
-      ? "text-2xl font-bold text-gray-800 border-b pb-1 mb-2"
-      : "text-base text-gray-600 mt-2";
-  };
+  const blockStyleFn = () => "text-base text-gray-600 mt-2";
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -38,27 +31,29 @@ export default function NotesEditor() {
     const contentState = editorState.getCurrentContent();
     const contentText = contentState.getPlainText();
     if (contentText.trim() === "") return alert("Note cannot be empty!");
-
-    const [header, ...content] = contentText.split("\n");
-    if (!header.trim()) return alert("Header text cannot be empty!");
+    if (!noteHeading.trim()) return alert("Heading cannot be empty!");
 
     const noteWithHeader = {
-      header: header.trim(),
-      text: content.join("\n").trim(),
+      header: noteHeading.trim(),
+      text: contentText.trim(),
       image: headerImage,
     };
 
     setSavedNotes([...savedNotes, noteWithHeader]);
     setEditorState(EditorState.createEmpty());
     setHeaderImage(null);
+    setNoteHeading("Title");
   };
 
   return (
     <div className="p-0 mx-auto rounded-md">
       <div className="relative bg-gray-200 h-48 flex items-center justify-center rounded">
-        <h1 className="absolute top-4 left-4 text-3xl font-bold mb-6 text-gray-700">
-          New Page
-        </h1>
+        <input
+          type="text"
+          value={noteHeading}
+          onChange={(e) => setNoteHeading(e.target.value)}
+          className="absolute top-4 left-4 text-3xl font-bold mb-6 text-gray-700 bg-transparent outline-none"
+        />
         {headerImage ? (
           <img
             src={headerImage}
@@ -83,7 +78,7 @@ export default function NotesEditor() {
           editorState={editorState}
           onChange={setEditorState}
           blockStyleFn={blockStyleFn}
-          placeholder="Heading"
+          placeholder="Write your note here..."
         />
       </div>
       <div className="flex justify-center mt-4">
