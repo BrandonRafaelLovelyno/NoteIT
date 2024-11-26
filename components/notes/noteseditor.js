@@ -1,47 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Editor, EditorState } from "draft-js";
 import "draft-js/dist/Draft.css"; // Styles for the editor
 import { twMerge } from "tailwind-merge";
 import { CldUploadWidget } from "next-cloudinary";
-import { toast } from "react-hot-toast";
-import axios from "axios";
-import { getBackendUrl, handleIntegrationFunction } from "@/helper/integration";
+import useSaveNote from "@/hook/useSaveNote";
 
-export default function NotesEditor() {
+export default function NotesEditor({ noteParamId }) {
+  const [noteId, setNoteId] = useState(noteParamId);
+
   const [title, setTitle] = useState("");
   const [editorState, setEditorState] = useState(EditorState.createEmpty()); // Initialize editor state
   const [headerImage, setHeaderImage] = useState(null); // State for the header image
-
-  // Block styling logic
-  const blockStyleFn = () => "text-base text-gray-600 mt-2";
-
-  // Handle image upload
-  const getCloudinaryUrl = (result) => {
-    setHeaderImage(result.info.url);
-  };
 
   const getPayload = () => {
     const contentState = editorState.getCurrentContent();
     return contentState.getPlainText();
   };
+  const payload = useMemo(() => getPayload(), [editorState]);
 
-  // Function to save notes
-  const handleSave = async () => {
-    const payload = getPayload();
+  useSaveNote(noteId, setNoteId, title, payload, headerImage, 1500);
 
-    const backendUrl = getBackendUrl();
-    await axios.post(
-      `${backendUrl}/note`,
-      { title, payload, image: headerImage },
-      { withCredentials: true }
-    );
-
-    toast.success("Notes uploaded");
+  // Handle image upload
+  const getCloudinaryUrl = (result) => {
+    setHeaderImage(result.info.url);
   };
-
-  const onSave = handleIntegrationFunction(handleSave);
 
   return (
     <div className="p-0 mx-auto rounded-md">
@@ -89,21 +73,9 @@ export default function NotesEditor() {
         <Editor
           editorState={editorState}
           onChange={setEditorState} // Update editor state
-          blockStyleFn={blockStyleFn} // Apply block styles
+          blockStyleFn={() => "text-base text-gray-600 mt-2"} // Apply block styles
           placeholder="Take notes..."
         />
-      </div>
-
-      {/* Save Button */}
-      <div className="flex justify-center mt-4">
-        <button
-          onClick={async () => {
-            await onSave();
-          }}
-          className="bg-[#102C57] text-white px-4 py-2 rounded"
-        >
-          Save Note
-        </button>
       </div>
     </div>
   );

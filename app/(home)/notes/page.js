@@ -8,7 +8,7 @@ const NotesEditor = dynamic(() => import("/components/notes/noteseditor"), {
 export default function NotesPage() {
   return (
     <div>
-      <NotesEditor />
+      <NotesEditor noteParamId={null} />
     </div>
   );
 }
