@@ -15,20 +15,7 @@ export default function NotesEditor() {
   const [headerImage, setHeaderImage] = useState(null); // State for the header image
 
   // Block styling logic
-  const blockStyleFn = (contentBlock) => {
-    const blockKey = contentBlock.getKey();
-    const firstBlockKey = editorState
-      .getCurrentContent()
-      .getFirstBlock()
-      .getKey();
-
-    // Style the first block as the title
-    if (blockKey === firstBlockKey) {
-      return "text-2xl font-bold text-gray-800 border-b pb-1 mb-2";
-    }
-
-    return "text-base text-gray-600 mt-2"; // Style for body content
-  };
+  const blockStyleFn = () => "text-base text-gray-600 mt-2";
 
   // Handle image upload
   const getCloudinaryUrl = (result) => {
@@ -103,7 +90,7 @@ export default function NotesEditor() {
           editorState={editorState}
           onChange={setEditorState} // Update editor state
           blockStyleFn={blockStyleFn} // Apply block styles
-          placeholder="Heading"
+          placeholder="Take notes..."
         />
       </div>
 
