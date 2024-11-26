@@ -18,8 +18,7 @@ const loginUser = () => {
         <LoginForm />
       </div>
     </CenterContainer>
-  )
+  );
+};
 
-}
-
-export default loginUser
+export default loginUser;
