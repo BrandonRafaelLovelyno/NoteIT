@@ -6,17 +6,7 @@ const toastIntegrationError = (err) => {
 };
 
 const getBackendUrl = () => {
-  let backendUrl;
-
-  const isLocal = process.env.NODE_ENV == "development";
-
-  if (isLocal) {
-    backendUrl = process.env.NEXT_PUBLIC_LOCAL_BE;
-  } else {
-    backendUrl = process.env.NEXT_PUBLIC_PRODUCTION_BE;
-  }
-
-  return backendUrl;
+  return process.env.NEXT_PUBLIC_PRODUCTION_BE;
 };
 
 const handleIntegrationFunction = (fn) => async () => {

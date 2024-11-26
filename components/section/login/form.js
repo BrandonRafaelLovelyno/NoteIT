@@ -25,7 +25,6 @@ const INPUTS = [
 
 const LoginForm = () => {
   const router = useRouter();
-  const { updateSession } = useSession();
 
   const requestLogin = async (e) => {
     try {
@@ -44,8 +43,6 @@ const LoginForm = () => {
           withCredentials: true,
         }
       );
-
-      console.log(data);
 
       toast.success(`Hello again, ${data.data.email}`);
 
