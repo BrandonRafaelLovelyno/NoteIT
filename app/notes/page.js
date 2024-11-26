@@ -1,5 +1,7 @@
-import NotesEditor from "/components/notes/noteseditor" ;
+"use client";
+import dynamic from 'next/dynamic';
 
+const NotesEditor = dynamic(() => import('/components/notes/noteseditor'), { ssr: false });
 
 export default function NotesPage() {
   return (
