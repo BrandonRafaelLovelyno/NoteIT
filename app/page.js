@@ -86,10 +86,10 @@ export default function Home() {
         <h3 className="text-4xl font-bold text-gray-800 mb-12">Our Features</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
           <div className="bg-gray-100 p-8 rounded-lg shadow-md">
-            <h4 className="text-2xl font-semibold mb-4">To-Do List</h4>
+            <h4 className="text-2xl font-semibold mb-4">Tasks List</h4>
             <p className="text-gray-600 text-lg">
               Organize your tasks efficiently by creating, tracking, and
-              managing your daily to-dos.
+              managing your daily tasks.
             </p>
           </div>
           <div className="bg-gray-100 p-8 rounded-lg shadow-md">

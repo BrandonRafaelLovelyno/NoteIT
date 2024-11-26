@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
-const ToDo = () => {
+const TaskPage = () => {
   const router = useRouter();
 
   const [title, setTitle] = useState("");
@@ -43,7 +43,7 @@ const ToDo = () => {
       {/* Header Image Section */}
       <div className="relative mb-6 h-56 flex flex-col gap-y">
         <h1 className="absolute top-4 left-4 text-3xl font-bold mb-6 text-gray-700">
-          To-Do List
+          Task List
         </h1>
         {headerImage ? (
           <img
@@ -116,4 +116,4 @@ const ToDo = () => {
   );
 };
 
-export default ToDo;
+export default TaskPage;

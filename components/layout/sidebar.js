@@ -148,7 +148,7 @@ export default function Sidebar() {
             <h3
               className={`text-sm font-semibold ${isExpanded ? "" : "hidden"}`}
             >
-              To-Do List
+              Tasks List
             </h3>
             <div
               className={`flex justify-center items-center ${
@@ -157,8 +157,8 @@ export default function Sidebar() {
             >
               <Link
                 className="text-blue-500 bg-white p-2 rounded-full shadow-md hover:bg-[#091c38] transition"
-                aria-label="Add new to-do"
-                href="/todo"
+                aria-label="Add new tasks"
+                href="/task"
               >
                 ➕
               </Link>
