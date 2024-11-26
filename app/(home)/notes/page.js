@@ -1,14 +1,21 @@
-"use client";
-import dynamic from "next/dynamic";
+import { getBackendUrl } from "@/helper/integration";
+import axios from "axios";
+import { redirect } from "next/navigation";
 
-const NotesEditor = dynamic(() => import("/components/notes/noteseditor"), {
-  ssr: false,
-});
+export default async function MakeNotesPage() {
+  const makeNote = async () => {
+    const backendUrl = getBackendUrl();
+    const { data } = await axios.post(
+      `${backendUrl}/note`,
+      {
+        title: "New Note",
+      },
+      { withCredentials: true }
+    );
+    return data.note._id;
+  };
 
-export default function NotesPage() {
-  return (
-    <div>
-      <NotesEditor noteParamId={null} />
-    </div>
-  );
+  const noteId = await makeNote();
+
+  return redirect(`/note/${noteId}`);
 }

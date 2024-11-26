@@ -1,14 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { Editor, EditorState } from "draft-js";
+import { useEffect, useMemo, useState } from "react";
+import { ContentState, Editor, EditorState } from "draft-js";
 import "draft-js/dist/Draft.css"; // Styles for the editor
 import { twMerge } from "tailwind-merge";
 import { CldUploadWidget } from "next-cloudinary";
 import useSaveNote from "@/hook/useSaveNote";
+import axios from "axios";
+import { getBackendUrl } from "@/helper/integration";
 
-export default function NotesEditor({ noteParamId }) {
-  const [noteId, setNoteId] = useState(noteParamId);
+export default function NotesEditor({ noteId }) {
+  const [isNoteFetched, setIsNoteFetched] = useState(false);
 
   const [title, setTitle] = useState("");
   const [editorState, setEditorState] = useState(EditorState.createEmpty()); // Initialize editor state
@@ -18,14 +20,39 @@ export default function NotesEditor({ noteParamId }) {
     const contentState = editorState.getCurrentContent();
     return contentState.getPlainText();
   };
-  const payload = useMemo(() => getPayload(), [editorState]);
+  const setPayload = (text) => {
+    if (!text) return;
 
-  useSaveNote(noteId, setNoteId, title, payload, headerImage, 1500);
+    const contentState = ContentState.createFromText(text);
+    const newEditorState = EditorState.createWithContent(contentState);
+    setEditorState(newEditorState);
+  };
+  const payload = useMemo(() => getPayload(), [editorState]);
 
   // Handle image upload
   const getCloudinaryUrl = (result) => {
     setHeaderImage(result.info.url);
   };
+
+  const fetchNote = async () => {
+    const backendUrl = getBackendUrl();
+    const { data } = await axios.get(`${backendUrl}/note?id=${noteId}`, {
+      withCredentials: true,
+    });
+
+    const note = data[0];
+    setTitle(note.title);
+    setPayload(note.payload);
+    setHeaderImage(note.iamge);
+
+    setIsNoteFetched(true);
+  };
+
+  useEffect(() => {
+    fetchNote();
+  }, []);
+
+  useSaveNote(noteId, isNoteFetched, title, payload, headerImage, 1500);
 
   return (
     <div className="p-0 mx-auto rounded-md">
