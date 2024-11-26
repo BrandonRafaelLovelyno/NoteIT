@@ -1,3 +1,5 @@
+"use client";
+
 import GoogleButton from "@/components/form/button/google-button";
 import CenterContainer from "@/components/layout/container/center-container";
 import Divider from "@/components/layout/divider";

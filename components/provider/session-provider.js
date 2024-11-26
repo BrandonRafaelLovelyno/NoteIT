@@ -21,13 +21,11 @@ export const SessionProvider = ({ children }) => {
     try {
       const backendUrl = getBackendUrl();
 
-      // TODO GABRIEL: fetch user with session
-      const { data } = await axios.get(`${backendUrl}/user`, {
+      const { data } = await axios.get(`${backendUrl}/auth/session`, {
         withCredentials: true,
       });
-      console.log(data);
 
-      setSession(data.user);
+      setSession({ userId: data.id });
     } catch (err) {
       console.log("Error fetching session: ", err);
     }
