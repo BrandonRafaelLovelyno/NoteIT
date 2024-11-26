@@ -43,7 +43,7 @@ export default function NotesEditor({ noteId }) {
     const note = data[0];
     setTitle(note.title);
     setPayload(note.payload);
-    setHeaderImage(note.iamge);
+    setHeaderImage(note.image);
 
     setIsNoteFetched(true);
   };

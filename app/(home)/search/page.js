@@ -8,17 +8,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-const RECENT_SEARCH_RESULTS = [
-  {
-    title: "Getting Started to use blender accoung",
-    image: "/email.png",
-  },
-  {
-    title: "Upcoming due dates about my programming week",
-    image: "/notes.png",
-  },
-];
-
 function mergeAndSortByUpdatedAt(list1, list2) {
   const combinedList = [...list1, ...list2];
 
@@ -49,8 +38,6 @@ export default function SearchPage() {
         withCredentials: true,
       }
     );
-
-    console.log(notes);
 
     const sortedResult = mergeAndSortByUpdatedAt(notes, tasks);
     setRecent(sortedResult.slice(0, 3));
