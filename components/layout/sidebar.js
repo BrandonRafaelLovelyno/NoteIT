@@ -169,17 +169,26 @@ export default function Sidebar() {
               !isExpanded ? "flex flex-col justify-center items-center" : ""
             }`}
           >
-            {tasks.map((task, index) => (
-              <li key={index} className={`${!isExpanded ? "text-center" : ""}`}>
-                <Link
-                  href={`/task/${task._id}`}
-                  className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#091c38] transition-colors"
+            {tasks.map((task, index) => {
+              if (task.status == "Completed") return;
+
+              return (
+                <li
+                  key={index}
+                  className={`${!isExpanded ? "text-center" : ""}`}
                 >
-                  <span className="text-lg">{task.icon}</span>
-                  {isExpanded && <span className="text-sm">{task.title}</span>}
-                </Link>
-              </li>
-            ))}
+                  <Link
+                    href={`/task/${task._id}`}
+                    className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#091c38] transition-colors"
+                  >
+                    <span className="text-lg">{task.icon}</span>
+                    {isExpanded && (
+                      <span className="text-sm">{task.title}</span>
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </nav>
