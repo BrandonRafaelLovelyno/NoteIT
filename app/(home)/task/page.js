@@ -1,22 +1,33 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { getBackendUrl } from "@/helper/integration";
 import axios from "axios";
-import { redirect } from "next/navigation";
 
-export default async function MakeTaskPage() {
-  const makeTask = async () => {
-    const backendUrl = getBackendUrl();
-    const { data } = await axios.post(
-      `${backendUrl}/task`,
-      {
-        title: "New Task",
-        deadline: Date.now(),
-      },
-      { withCredentials: true }
-    );
-    return data.task._id;
-  };
+export default function MakeTaskPage() {
+  const router = useRouter();
 
-  const taskId = await makeTask();
+  useEffect(() => {
+    const makeTask = async () => {
+      const backendUrl = getBackendUrl();
+      const { data } = await axios.post(
+        `${backendUrl}/task`,
+        {
+          title: "New Task",
+          deadline: Date.now(),
+        },
+        { withCredentials: true }
+      );
 
-  return redirect(`/task/${taskId}`);
+      const taskId = data.task._id;
+
+      // Redirect to the new note page
+      router.push(`/task/${taskId}`);
+    };
+
+    makeTask();
+  }, [router]);
+
+  return <div className="text-black">Creating task...</div>; // Show a loading state or placeholder
 }

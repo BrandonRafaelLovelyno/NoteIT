@@ -56,13 +56,17 @@ const TaskPage = () => {
   const postTask = async () => {
     const backendUrl = getBackendUrl();
 
-    await axios.patch(`${backendUrl}/task/${taskId}`, {
-      title,
-      deadline,
-      description,
-      status,
-      image: headerImage,
-    });
+    await axios.patch(
+      `${backendUrl}/task/${taskId}`,
+      {
+        title,
+        deadline,
+        description,
+        status,
+        image: headerImage,
+      },
+      { withCredentials: true }
+    );
 
     toast.success("Task created");
 

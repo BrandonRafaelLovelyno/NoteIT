@@ -1,21 +1,32 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { getBackendUrl } from "@/helper/integration";
 import axios from "axios";
-import { redirect } from "next/navigation";
 
-export default async function MakeNotesPage() {
-  const makeNote = async () => {
-    const backendUrl = getBackendUrl();
-    const { data } = await axios.post(
-      `${backendUrl}/note`,
-      {
-        title: "New Note",
-      },
-      { withCredentials: true }
-    );
-    return data.note._id;
-  };
+export default function MakeNotesPage() {
+  const router = useRouter();
 
-  const noteId = await makeNote();
+  useEffect(() => {
+    const makeNote = async () => {
+      const backendUrl = getBackendUrl();
+      const { data } = await axios.post(
+        `${backendUrl}/note`,
+        {
+          title: "New Note",
+        },
+        { withCredentials: true }
+      );
 
-  return redirect(`/note/${noteId}`);
+      const noteId = data.note._id;
+
+      // Redirect to the new note page
+      router.push(`/notes/${noteId}`);
+    };
+
+    makeNote();
+  }, [router]);
+
+  return <div className="text-black">Creating note...</div>; // Show a loading state or placeholder
 }
