@@ -15,7 +15,7 @@ export default function HomePage() {
   return (
     <div>
       <h1 className="text-3xl font-semibold mb-6 text-gray-800">
-        Welcome home, {session.user.email}
+        Welcome home, {session?.user.email || "admin"}
       </h1>
       <section>
         <h2 className="text-xl font-medium mb-4 text-gray-700">

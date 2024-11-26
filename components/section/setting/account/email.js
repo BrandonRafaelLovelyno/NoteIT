@@ -17,7 +17,7 @@ export default function AccountEmail() {
       <div className={twMerge("flex flex-col gap-y-2")}>
         <p className={twMerge("font-semibold")}>Email</p>
         {/* TODO GABRIEL: CHECK IF SESSION IS IMPLEMENTED */}
-        <p>{session.user.email}</p>
+        <p>{session?.user.email || "admin"}</p>
       </div>
       <div className={twMerge("w-fit")}>
         <PrimaryButton title="Change email" />
