@@ -1,36 +1,14 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Note IT | Tugas Akhir Pengembangan Aplikasi Web
 
-## Getting Started
+**NoteIT** adalah aplikasi berbasis *web app* yang dirancang untuk membantu pengguna mencatat ide, rencana, dan informasi penting dengan mudah. Dengan fitur to-do list yang terintegrasi, pengguna dapat mengatur daftar tugas dengan tenggat waktu yang jelas, memastikan semua pekerjaan terselesaikan tepat waktu. Aplikasi ini cocok untuk individu maupun tim kecil yang ingin menjaga produktivitas dan keteraturan tanpa kerumitan fitur tambahan. Fokus utama adalah kesederhanaan, kemudahan penggunaan, dan efisiensi dalam mencatat dan mengelola tugas sehari-hari.
 
-First, run the development server:
+## Tim pengembang
+| No  | Nama                        | NIM                 |
+|-----|-----------------------------|---------------------|
+| 1   | Brandon Rafael Lovelyno      | 22/500359/TK/54847  |
+| 2   | Steven Namora Roha S. N      | 22/505930/TK/55405  |
+| 3   | Marchel Rianra Glendrikho S. | 22/494013/TK/54157  |
+| 4   | Fatimah Nadia Eka Putri      | 22/497876/TK/54588  |
+| 5   | Syaifullah Hilmi Ma’arij     | 22/497775/TK/54568  |
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Links
