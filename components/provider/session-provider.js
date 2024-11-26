@@ -8,6 +8,7 @@ const SessionContext = createContext(null);
 
 export const SessionProvider = ({ children }) => {
   const [session, setSession] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const updateSession = (newSession) => {
     setSession(newSession);
@@ -26,6 +27,7 @@ export const SessionProvider = ({ children }) => {
       });
 
       setSession({ userId: data.id });
+      setIsLoading(false);
     } catch (err) {
       console.log("Error fetching session: ", err);
     }
@@ -37,7 +39,9 @@ export const SessionProvider = ({ children }) => {
   }, []);
 
   return (
-    <SessionContext.Provider value={{ session, updateSession, clearSession }}>
+    <SessionContext.Provider
+      value={{ session, updateSession, clearSession, isLoading }}
+    >
       {children}
     </SessionContext.Provider>
   );

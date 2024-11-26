@@ -1,24 +1,30 @@
+"use client";
+
 import Sidebar from "@/components/layout/sidebar";
-import { getBackendUrl } from "@/helper/integration";
-import { redirect } from "next/navigation";
+import { useSession } from "@/components/provider/session-provider";
+import { useRouter } from "next/navigation";
+import { useMemo } from "react";
 
-export default async function HomeLayout({ children }) {
-  const fetchSession = async () => {
-    try {
-      const backendUrl = getBackendUrl();
+export default function HomeLayout({ children }) {
+  const router = useRouter();
 
-      await axios.get(`${backendUrl}/auth/session`, {
-        withCredentials: true,
-      });
-    } catch (err) {
-      return redirect("/");
+  const { session, isLoading } = useSession();
+
+  const body = useMemo(() => {
+    if (isLoading) {
+      return <div />;
+    } else {
+      if (!session.userId) {
+        router.push("/");
+      }
+      return (
+        <div className="flex h-screen">
+          <Sidebar />
+          <main className="flex-1 p-6">{children}</main>
+        </div>
+      );
     }
-  };
+  }, [isLoading, session]);
 
-  return (
-    <div className="flex h-screen">
-      <Sidebar />
-      <main className="flex-1 p-6">{children}</main>
-    </div>
-  );
+  return body;
 }
