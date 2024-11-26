@@ -17,8 +17,6 @@ const GoogleButton = ({ title }) => {
     router.replace(authorizationUrl);
   };
 
-  const onClick = () => handleIntegrationFunction(loginGoogle);
-
   return (
     <button
       className={twMerge(
@@ -28,7 +26,10 @@ const GoogleButton = ({ title }) => {
         "border-2 border-blue rounded-lg",
         "font-medium text-lg text-blue"
       )}
-      onClick={onClick}
+      onClick={() => {
+        const onLogin = handleIntegrationFunction(loginGoogle);
+        onLogin();
+      }}
     >
       <div className={twMerge("relative", "w-8 h-8")}>
         <Image
