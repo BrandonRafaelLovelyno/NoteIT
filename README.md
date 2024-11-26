@@ -8,7 +8,7 @@
 | 1   | Brandon Rafael Lovelyno      | 22/500359/TK/54847  |
 | 2   | Steven Namora Roha S. N      | 22/505930/TK/55405  |
 | 3   | Marchel Rianra Glendrikho S. | 22/494013/TK/54157  |
-| 4   | Fatimah Nadia Eka Putri      | 22/497876/TK/54588  |
-| 5   | Syaifullah Hilmi Ma’arij     | 22/497775/TK/54568  |
 
 ## Links
+- **Front-End Deployment** : [Our Website](https://)
+- **Figma Design** : [Figma Desain](https://www.figma.com/design/OWsAwdikljTOvgVEnQZD3Q/Desain-PAW?node-id=0-1&t=8VVIs1HcwGmWD9yh-1)
