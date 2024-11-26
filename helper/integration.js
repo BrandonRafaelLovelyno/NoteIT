@@ -19,10 +19,11 @@ const getBackendUrl = () => {
   return backendUrl;
 };
 
-const handleIntegrationFunction = async (fn) => {
+const handleIntegrationFunction = (fn) => async () => {
   try {
     await fn();
   } catch (err) {
+    console.log(err);
     toastIntegrationError(err);
   }
 };

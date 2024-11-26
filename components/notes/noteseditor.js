@@ -1,15 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Editor, EditorState, convertToRaw } from "draft-js";
+import { Editor, EditorState } from "draft-js";
 import "draft-js/dist/Draft.css"; // Styles for the editor
 import { twMerge } from "tailwind-merge";
 import { CldUploadWidget } from "next-cloudinary";
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import { getBackendUrl, handleIntegrationFunction } from "@/helper/integration";
 
 export default function NotesEditor() {
   const [title, setTitle] = useState("");
   const [editorState, setEditorState] = useState(EditorState.createEmpty()); // Initialize editor state
-  const [savedNotes, setSavedNotes] = useState([]); // State for saved notes
   const [headerImage, setHeaderImage] = useState(null); // State for the header image
 
   // Block styling logic
@@ -29,41 +31,30 @@ export default function NotesEditor() {
   };
 
   // Handle image upload
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setHeaderImage(reader.result); // Convert file to Base64 string
-      reader.readAsDataURL(file);
-    }
+  const getCloudinaryUrl = (result) => {
+    setHeaderImage(result.info.url);
+  };
+
+  const getPayload = () => {
+    const contentState = editorState.getCurrentContent();
+    return contentState.getPlainText();
   };
 
   // Function to save notes
-  const handleSave = () => {
-    const contentState = editorState.getCurrentContent();
-    const rawContent = convertToRaw(contentState); // Get raw content
-    const contentText = contentState.getPlainText(); // Get plain text from editor
+  const handleSave = async () => {
+    const payload = getPayload();
 
-    if (contentText.trim() === "") {
-      return alert("Note cannot be empty!");
-    }
+    const backendUrl = getBackendUrl();
+    await axios.post(
+      `${backendUrl}/note`,
+      { title, payload, image: headerImage },
+      { withCredentials: true }
+    );
 
-    // Split the first line as the header and the rest as the note content
-    const [header, ...content] = contentText.split("\n");
-    if (!header.trim()) {
-      return alert("Header text cannot be empty!");
-    }
-
-    const noteWithHeader = {
-      header: header.trim(),
-      text: content.join("\n").trim(),
-      image: headerImage,
-    };
-
-    setSavedNotes([...savedNotes, noteWithHeader]); // Save note with header
-    setEditorState(EditorState.createEmpty()); // Clear editor
-    setHeaderImage(null); // Clear header image
+    toast.success("Notes uploaded");
   };
+
+  const onSave = handleIntegrationFunction(handleSave);
 
   return (
     <div className="p-0 mx-auto rounded-md">
@@ -80,7 +71,7 @@ export default function NotesEditor() {
         )}
 
         {/* Upload Image Button */}
-        <CldUploadWidget uploadPreset="ml_default">
+        <CldUploadWidget uploadPreset="ml_default" onSuccess={getCloudinaryUrl}>
           {({ open }) => {
             return (
               <label
@@ -119,52 +110,13 @@ export default function NotesEditor() {
       {/* Save Button */}
       <div className="flex justify-center mt-4">
         <button
-          onClick={handleSave}
+          onClick={async () => {
+            await onSave();
+          }}
           className="bg-[#102C57] text-white px-4 py-2 rounded"
         >
           Save Note
         </button>
-      </div>
-
-      {/* Display Saved Notes */}
-      <div className="mt-6">
-        <h2 className="text-xl font-semibold text-gray-700 text-center">
-          Saved Notes
-        </h2>
-        <div className="flex flex-col items-center mt-4">
-          {savedNotes.length === 0 ? (
-            <p className="text-gray-500">No notes saved yet.</p>
-          ) : (
-            <ul className="w-full max-w-md">
-              {savedNotes.map((note, index) => (
-                <li key={index} className="mb-6 border-b pb-4">
-                  {/* Display Header Text */}
-                  {note.header && (
-                    <h3 className="text-lg font-bold text-gray-800 mb-2">
-                      {note.header}
-                    </h3>
-                  )}
-
-                  {/* Display Header Image */}
-                  {note.image && (
-                    <div className="bg-gray-200 h-32 rounded mb-2">
-                      <img
-                        src={note.image}
-                        alt="Saved Header"
-                        className="w-full h-full object-cover rounded"
-                      />
-                    </div>
-                  )}
-
-                  {/* Display Note Content */}
-                  <p className="text-gray-700 whitespace-pre-line">
-                    {note.text}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
       </div>
     </div>
   );
