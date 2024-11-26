@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 
-const TextInput = ({ name, label, placeholder }) => {
+const TextInput = ({ name, label, placeholder, isPassword }) => {
   return (
     <div className={twMerge("flex flex-col gap-y-1")}>
       <p className={twMerge("px-3", "text-blue text-lg font-medium")}>
@@ -17,6 +17,7 @@ const TextInput = ({ name, label, placeholder }) => {
         )}
         name={name}
         placeholder={placeholder}
+        type={isPassword ? "password" : "text"}
       />
     </div>
   );

@@ -1,15 +1,14 @@
+"use client";
+
 import PrimaryButton from "@/components/form/button/primary";
 import TextInput from "@/components/form/text-input";
 import { getBackendUrl } from "@/helper/integration";
 import { twMerge } from "tailwind-merge";
 import { toast } from "react-hot-toast";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const INPUTS = [
-  {
-    name: "name",
-    label: "Name",
-    placeholder: "Enter your name...",
-  },
   {
     name: "email",
     label: "Email",
@@ -19,40 +18,46 @@ const INPUTS = [
     name: "password",
     label: "Password",
     placeholder: "Type your password...",
+    isPassword: true,
   },
   {
     name: "confirmPassword",
     label: "Confirm Password",
     placeholder: "Confirm your password...",
+    isPassword: true,
   },
 ];
 
 const SignUpForm = () => {
+  const router = useRouter();
+
   const createAccount = async (e) => {
     try {
       e.preventDefault();
       const backendUrl = getBackendUrl();
 
-      const formObject = new FormData(e.target);
+      const formData = new FormData(e.target);
+      const email = formData.get("email");
+      const password = formData.get("password");
+      const passwordConfirmation = formData.get("confirmPassword");
 
-      // Convert FormData to a regular object
-      const formValues = Object.fromEntries(formObject.entries());
+      if (password != passwordConfirmation)
+        throw new Error("Password does not match");
 
-      console.log("Form submitted:", formValues);
-
-      // TODO GABRIEL: Create account
-      const { data } = await axios.post(
-        `${backendUrl}/auth/sign-up`,
-        formObject,
+      await axios.post(
+        `${backendUrl}/auth/signup`,
+        { email, password },
         {
           withCredentials: true,
         }
       );
 
-      updateSession(data.user);
+      toast.success("Account created. Please login with the account");
+
+      setTimeout(() => {
+        router.replace("/login");
+      }, 1000);
     } catch (err) {
-      // TODO GABRIEL: Display proper error message
-      console.log(err);
       toast.error(err.message);
     }
   };

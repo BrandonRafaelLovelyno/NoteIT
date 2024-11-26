@@ -7,6 +7,7 @@ import { getBackendUrl, handleIntegrationFunction } from "@/helper/integration";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useSession } from "@/components/provider/session-provider";
+import { useRouter } from "next/navigation";
 
 const INPUTS = [
   {
@@ -18,10 +19,12 @@ const INPUTS = [
     name: "password",
     label: "Password",
     placeholder: "Enter your password...",
+    isPassword: true,
   },
 ];
 
 const LoginForm = () => {
+  const router = useRouter();
   const { updateSession } = useSession();
 
   const requestLogin = async (e) => {
@@ -29,25 +32,27 @@ const LoginForm = () => {
       e.preventDefault();
       const backendUrl = getBackendUrl();
 
-      const formObject = new FormData(e.target);
+      const formData = new FormData(e.target);
 
-      // Convert FormData to a regular object
-      const formValues = Object.fromEntries(formObject.entries());
+      const email = formData.get("email");
+      const password = formData.get("password");
 
-      console.log("Form submitted:", formValues);
-
-      // TODO GABRIEL: Integrate login with cookie
       const { data } = await axios.post(
         `${backendUrl}/auth/login`,
-        formObject,
+        { email, password },
         {
           withCredentials: true,
         }
       );
 
-      updateSession(data.user);
+      console.log(data);
+
+      toast.success(`Hello again, ${data.data.email}`);
+
+      setTimeout(() => {
+        router.push("/home");
+      }, 1000);
     } catch (err) {
-      // TODO GABRIEL: Display proper error message
       console.log(err);
       toast.error(err.message);
     }
