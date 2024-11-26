@@ -2,8 +2,11 @@
 
 import { getBackendUrl } from "@/helper/integration";
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { FaTasks } from "react-icons/fa";
+import { FaRegStickyNote } from "react-icons/fa";
 
 export default function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -135,7 +138,7 @@ export default function Sidebar() {
                   href={`/notes/${note._id}`}
                   className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#091c38] transition-colors"
                 >
-                  <span className="text-lg">{note.icon}</span>
+                  <FaRegStickyNote className="text-white h-6 w-6" />
                   {isExpanded && <span className="text-sm">{note.title}</span>}
                 </Link>
               </li>
@@ -181,7 +184,7 @@ export default function Sidebar() {
                     href={`/task/${task._id}`}
                     className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#091c38] transition-colors"
                   >
-                    <span className="text-lg">{task.icon}</span>
+                    <FaTasks className="text-white w-6 h-6" />
                     {isExpanded && (
                       <span className="text-sm">{task.title}</span>
                     )}
