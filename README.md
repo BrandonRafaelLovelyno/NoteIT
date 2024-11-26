@@ -14,7 +14,8 @@
 
 ## Links
 
-- **Front-End Deployment** : [Coming Soon](https://)
+- **Front-End Deployment** : [Front-End Website](https://note-it-fe.vercel.app/)
+- **Back-End Deployment** : [Back-End Website](https://note-it-be1.vercel.app/)
 - **Figma Design** : [Figma Desain](https://www.figma.com/design/OWsAwdikljTOvgVEnQZD3Q/Desain-PAW?node-id=0-1&t=8VVIs1HcwGmWD9yh-1)
 - **Video Presentation** : [Coming Soon](https://)
 - **PPT Presentation** : [PPT Note-IT](https://www.canva.com/design/DAGXj9EXjcU/shzw9hqgetAHDpnpd7I5Ig/edit?utm_content=DAGXj9EXjcU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
