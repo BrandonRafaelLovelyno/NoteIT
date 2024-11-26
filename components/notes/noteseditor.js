@@ -30,7 +30,7 @@ export default function NotesEditor({ noteId }) {
   const payload = useMemo(() => getPayload(), [editorState]);
 
   // Handle image upload
-  const getCloudinaryUrl = (result) => {
+  const updateHeaderImage = (result) => {
     setHeaderImage(result.info.url);
   };
 
@@ -69,7 +69,10 @@ export default function NotesEditor({ noteId }) {
         )}
 
         {/* Upload Image Button */}
-        <CldUploadWidget uploadPreset="ml_default" onSuccess={getCloudinaryUrl}>
+        <CldUploadWidget
+          uploadPreset="ml_default"
+          onSuccess={updateHeaderImage}
+        >
           {({ open }) => {
             return (
               <label

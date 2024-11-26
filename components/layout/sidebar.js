@@ -8,11 +8,20 @@ import { useState, useEffect } from "react";
 export default function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(true);
   const [notes, setNotes] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const menuItems = [
     { name: "Home", href: "/home", icon: "🏠" },
     { name: "Search", href: "/search", icon: "🔍" },
     { name: "Setting", href: "/setting", icon: "⚙️" },
   ];
+
+  const fetchTask = async () => {
+    const backendUrl = getBackendUrl();
+    const { data } = await axios.get(`${backendUrl}/task`, {
+      withCredentials: true,
+    });
+    setTasks(data);
+  };
 
   const fetchNote = async () => {
     const backendUrl = getBackendUrl();
@@ -24,13 +33,8 @@ export default function Sidebar() {
 
   useEffect(() => {
     fetchNote();
+    fetchTask();
   }, []);
-
-  const toDoList = [
-    { name: "Groceries", href: "/todo/groceries", icon: "🛒" },
-    { name: "Work Tasks", href: "/todo/work", icon: "💼" },
-    { name: "Homework", href: "/todo/homework", icon: "📚" },
-  ];
 
   // Adjust sidebar based on window size
   useEffect(() => {
@@ -61,7 +65,7 @@ export default function Sidebar() {
       <nav
         className={`transition-all duration-300 ${
           isExpanded ? "w-64" : "w-20"
-        } bg-[#102C57] text-white flex flex-col p-6 overflow-auto`}
+        } bg-[#102C57] text-white flex flex-col p-6 overflow-auto pb-20`}
       >
         <div className="mb-8 flex justify-between items-center">
           <h2
@@ -73,7 +77,7 @@ export default function Sidebar() {
           </h2>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            onKeyPress={handleKeyPress}
+            onKeyUp={handleKeyPress}
             className="text-white"
             aria-label="Toggle Sidebar"
           >
@@ -165,14 +169,14 @@ export default function Sidebar() {
               !isExpanded ? "flex flex-col justify-center items-center" : ""
             }`}
           >
-            {toDoList.map((task, index) => (
+            {tasks.map((task, index) => (
               <li key={index} className={`${!isExpanded ? "text-center" : ""}`}>
                 <Link
-                  href={task.href}
+                  href={`/task/${task._id}`}
                   className="flex items-center space-x-3 p-2 rounded-lg hover:bg-[#091c38] transition-colors"
                 >
                   <span className="text-lg">{task.icon}</span>
-                  {isExpanded && <span className="text-sm">{task.name}</span>}
+                  {isExpanded && <span className="text-sm">{task.title}</span>}
                 </Link>
               </li>
             ))}

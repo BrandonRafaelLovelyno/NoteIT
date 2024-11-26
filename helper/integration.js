@@ -1,7 +1,7 @@
 import { toast } from "react-hot-toast";
 
 const toastIntegrationError = (err) => {
-  const message = err.message || "Something went wrong";
+  const message = err.response.data.message || "Something went wrong";
   toast.error(message);
 };
 
