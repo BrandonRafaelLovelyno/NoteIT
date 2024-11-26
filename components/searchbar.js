@@ -34,7 +34,7 @@ export default function Searchbar({ query, setQuery, placeholder }) {
         aria-label="Search"
         className={twMerge(
           "w-full",
-          "focus:outline-none focus:ring-0",
+          "focus:outline-none focus:ring-0 bg-transparent",
           "text-xl"
         )}
       />
