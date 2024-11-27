@@ -14,7 +14,7 @@ export default function HomeLayout({ children }) {
     if (isLoading) {
       return <div />;
     } else {
-      if (!session.userId) {
+      if (!session?.userId) {
         router.push("/");
       }
       return (
