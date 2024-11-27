@@ -15,7 +15,7 @@ export default function HomeLayout({ children }) {
       return <div />;
     } else {
       if (!session?.userId) {
-        router.push("/");
+        return router.push("/");
       }
       return (
         <div className="flex h-screen">

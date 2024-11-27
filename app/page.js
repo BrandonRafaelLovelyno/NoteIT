@@ -15,8 +15,8 @@ export default function Home() {
           />
         </div>
         <nav className="hidden md:flex space-x-8">
-          <Link href="/dashboard" className="hover:text-indigo-600 text-lg">
-            Dashboard
+          <Link href="/home" className="hover:text-indigo-600 text-lg">
+            Home
           </Link>
           <Link
             href="#Features"

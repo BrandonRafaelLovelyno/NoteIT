@@ -11,7 +11,9 @@ const GoogleButton = ({ title }) => {
 
   const loginGoogle = async () => {
     const backendURL = getBackendUrl();
-    const { data } = await axios.get(`${backendURL}/auth/google`);
+    const { data } = await axios.get(`${backendURL}/auth/google`, {
+      withCredentials: true,
+    });
     const authorizationUrl = data.url;
 
     router.replace(authorizationUrl);
