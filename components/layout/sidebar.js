@@ -4,11 +4,14 @@ import { getBackendUrl } from "@/helper/integration";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { FaTasks } from "react-icons/fa";
 import { FaRegStickyNote } from "react-icons/fa";
 
 export default function Sidebar() {
+  const router = useRouter();
+
   const [isExpanded, setIsExpanded] = useState(true);
   const [notes, setNotes] = useState([]);
   const [tasks, setTasks] = useState([]);
@@ -60,6 +63,16 @@ export default function Sidebar() {
     if (e.key === "Enter" || e.key === " ") {
       setIsExpanded(!isExpanded);
     }
+  };
+
+  const onLogout = async () => {
+    const backendURL = getBackendUrl();
+    await axios.post(
+      `${backendURL}/auth/logout`,
+      {},
+      { withCredentials: true }
+    );
+    router.replace("/");
   };
 
   return (
@@ -198,7 +211,9 @@ export default function Sidebar() {
 
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto h-full">
-        {/* Main page content goes here */}
+        <button onClick={onLogout}>
+          <p className="text-xl font-bold">Logout</p>
+        </button>
       </div>
     </div>
   );
