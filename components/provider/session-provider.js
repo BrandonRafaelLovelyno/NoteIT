@@ -27,9 +27,10 @@ export const SessionProvider = ({ children }) => {
       });
 
       setSession({ userId: data.id });
-      setIsLoading(false);
     } catch (err) {
       console.log("Error fetching session: ", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
