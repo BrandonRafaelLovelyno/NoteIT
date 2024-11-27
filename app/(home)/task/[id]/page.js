@@ -39,7 +39,7 @@ const TaskPage = () => {
 
     const task = data[0];
     setTitle(task.title);
-    setHeaderImage(task.iamge);
+    setHeaderImage(task.image);
     setDeadline(convertToLocalDatetime(task.deadline));
     setDescription(task.description);
     setStatus(task.status);
