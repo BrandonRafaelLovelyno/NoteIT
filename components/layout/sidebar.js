@@ -207,14 +207,13 @@ export default function Sidebar() {
             })}
           </ul>
         </div>
+        <button onClick={onLogout}>
+          <p className="text-xl text-white font-bold">Logout</p>
+        </button>
       </nav>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto h-full">
-        <button onClick={onLogout}>
-          <p className="text-xl font-bold">Logout</p>
-        </button>
-      </div>
+      <div className="flex-1 overflow-y-auto h-full"></div>
     </div>
   );
 }
