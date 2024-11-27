@@ -15,8 +15,69 @@
 ## Links
 
 - **Front-End Deployment** : [Front-End Website](https://note-it-fe.vercel.app/)
-- **Back-End Deployment** : [Back-End Website](https://note-it-be1.vercel.app/)
-- **Full Deployment** : [Coming Soon](https://)
+- **Back-End Deployment** : [Back-End Website](https://note-it-be-zeta.vercel.app)
 - **Figma Design** : [Figma Desain](https://www.figma.com/design/OWsAwdikljTOvgVEnQZD3Q/Desain-PAW?node-id=0-1&t=8VVIs1HcwGmWD9yh-1)
 - **Video Presentation** : [Coming Soon](https://)
 - **PPT Presentation** : [PPT Note-IT](https://www.canva.com/design/DAGXj9EXjcU/shzw9hqgetAHDpnpd7I5Ig/edit?utm_content=DAGXj9EXjcU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+# Development Setup
+
+## Prerequisites  
+Pastikan perangkat Anda memiliki prasyarat berikut:  
+- **Node.js** versi 16.15 atau lebih tinggi  
+- **npm** versi 7 atau lebih tinggi  
+
+## Menjalankan Repository  
+
+### Front-End  
+1. Clone repository Front-End
+   ```bash  
+   git clone https://github.com/BrandonRafaelLovelyno/NoteIT-fe.git  
+   cd NoteIT-fe
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Beberapa Dependensi lain :
+> [!IMPORTANT]
+> Terkadang ada dependensi yang harus diinstall dalam folder `client` tersendiri maupun dalam folder `server` tersendiri.
+> Jadi perhatikan jika ada error
+
+4. Konfigurasi Environment : 
+Ada file `.env` yang harus dibuat.
+
+```env
+MONGO_URI=
+
+GOOGLE_CLIENT_ID=
+JWT_SECRET_KEY=
+
+PORT=5000
+```
+
+```env
+NEXT_PUBLIC_PRODUCTION_BE =
+NEXT_PUBLIC_CLOUDINARY_API_SECRET=
+NEXT_PUBLIC_CLOUDINARY_API_KEY=
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
+NEXT_PUBLIC_BASE_URL=
+```
+**Sesuaikan dengan key yang telah anda punya**
+
+5. Untuk menjalankan aplikasi di development mode:
+  ```bash
+   npm run dev
+```
+> Server akan berjalan pada port:5000
+
+```arduino
+http://localhost:5000  
+```
+
+
+> [!IMPORTANT]
+> Lakukan hal diatas untuk repository backend
+> Pastikan telah mengatur semua konfigurasi dengan benar pada file .env untuk Back-End
+> Perhatikan error karena beberapa dependensi lain selain npm.
+
