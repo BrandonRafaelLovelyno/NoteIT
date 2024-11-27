@@ -11,7 +11,7 @@ import { twMerge } from "tailwind-merge";
 function mergeAndSortByUpdatedAt(list1, list2) {
   const combinedList = [...list1, ...list2];
 
-  combinedList.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
+  combinedList.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 
   return combinedList;
 }
